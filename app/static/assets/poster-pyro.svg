@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 560" role="img" aria-label="Pyrokinesis concert poster">
+  <rect width="420" height="560" rx="10" fill="#120f12"/>
+  <radialGradient id="fire" cx=".65" cy=".66" r=".6">
+    <stop stop-color="#e61e46" stop-opacity=".9"/>
+    <stop offset=".55" stop-color="#2c1018"/>
+    <stop offset="1" stop-color="#120f12"/>
+  </radialGradient>
+  <rect width="420" height="560" fill="url(#fire)"/>
+  <g fill="#ff2454" font-family="Arial Black, Arial">
+    <text x="24" y="86" font-size="52">PYRO</text>
+    <text x="24" y="140" font-size="52">KINE</text>
+    <text x="24" y="194" font-size="52">SIS</text>
+  </g>
+  <path d="M186 360c46-118 128-170 214-188M178 404c60-70 132-92 218-70M232 530c40-78 98-120 174-126" fill="none" stroke="#ff2454" stroke-width="5" stroke-opacity=".75"/>
+  <circle cx="238" cy="232" r="16" fill="#ff2454"/>
+  <circle cx="322" cy="286" r="10" fill="#ff2454"/>
+  <g fill="#f4d9d8">
+    <text x="28" y="500" font-family="Arial" font-size="20">NIGHT HALL / KAZAN</text>
+    <text x="28" y="526" font-family="Arial Black, Arial" font-size="26">OCT 16</text>
+  </g>
+</svg>

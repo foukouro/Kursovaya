@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Concerts | Waves</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body class="subpage">
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="/">Waves</a>
+        <nav class="nav" aria-label="Главная навигация">
+          <a href="/concerts">Concert</a>
+          <a href="/cabinet">Cabinet</a>
+          <a href="/">Home</a>
+        </nav>
+        <div class="topbar-actions" aria-label="Авторизация">
+          <button class="ghost-button" type="button" id="topbar-login-button" data-open-auth="login">log in</button>
+          <button class="ghost-button" type="button" id="topbar-signup-button" data-open-auth="register">sign up</button>
+          <button class="ghost-button" type="button" id="logout-button" hidden>logout</button>
+        </div>
+      </header>
+
+      <section class="page-intro">
+        <h1>Concert search</h1>
+        <p>Ищите концерты по городу, жанру, датам и названию группы.</p>
+      </section>
+
+      <section class="workspace page-workspace" id="concerts">
+        <div class="panel search-panel">
+          <div class="panel-heading">
+            <h2>Filters</h2>
+            <span id="auth-state">guest</span>
+          </div>
+
+          <form class="search-form" id="search-form">
+            <label>
+              City
+              <input
+                name="city"
+                type="text"
+                list="city-list"
+                data-suggest-list="city-list"
+                placeholder="Введите или выберите город"
+                required
+              />
+              <datalist id="city-list">
+                <option value="Москва"></option>
+                <option value="Санкт-Петербург"></option>
+                <option value="Казань"></option>
+                <option value="Екатеринбург"></option>
+                <option value="Новосибирск"></option>
+                <option value="Нижний Новгород"></option>
+                <option value="Самара"></option>
+                <option value="Краснодар"></option>
+                <option value="Сочи"></option>
+                <option value="Уфа"></option>
+                <option value="Красноярск"></option>
+                <option value="London"></option>
+                <option value="Berlin"></option>
+                <option value="Paris"></option>
+              </datalist>
+            </label>
+            <label>
+              Genre
+              <input
+                name="genre"
+                type="text"
+                list="genre-list"
+                data-suggest-list="genre-list"
+                placeholder="Введите или выберите жанр"
+              />
+              <datalist id="genre-list">
+                <option value="rock"></option>
+                <option value="pop"></option>
+                <option value="indie"></option>
+                <option value="metal"></option>
+                <option value="jazz"></option>
+                <option value="electronic"></option>
+                <option value="hip-hop"></option>
+              </datalist>
+            </label>
+            <label>
+              Artist / band
+              <input name="artist" type="search" placeholder="Queen, Pyrokinesis..." />
+            </label>
+            <label>
+              From
+              <input name="date_from" type="date" />
+            </label>
+            <label>
+              To
+              <input name="date_to" type="date" />
+            </label>
+            <button class="primary-button wide" type="submit">search</button>
+            <button class="ghost-button wide internet-button" type="button" id="external-search">search internet</button>
+          </form>
+        </div>
+
+        <div class="panel result-panel">
+          <div class="panel-heading">
+            <h2>Concerts</h2>
+            <button class="ghost-button compact" type="button" id="load-tickets">my tickets</button>
+          </div>
+          <div class="result-list" id="result-list" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="auth-dialog" id="auth-dialog">
+      <form class="auth-card" id="auth-form" method="dialog">
+        <button class="close-button" type="button" id="close-auth" aria-label="Закрыть">x</button>
+        <h2 id="auth-title">log in</h2>
+        <label>
+          Email
+          <input name="email" type="email" autocomplete="email" required />
+        </label>
+        <label>
+          Password
+          <input name="password" type="password" autocomplete="current-password" required />
+        </label>
+        <div class="register-fields" id="register-fields">
+          <label>
+            First name
+            <input name="first_name" type="text" autocomplete="given-name" />
+          </label>
+          <label>
+            Last name
+            <input name="last_name" type="text" autocomplete="family-name" />
+          </label>
+        </div>
+        <button class="primary-button wide" type="submit" id="auth-submit">log in</button>
+        <p class="form-message" id="auth-message"></p>
+      </form>
+    </dialog>
+
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

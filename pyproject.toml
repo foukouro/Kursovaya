@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "music-band-manager"
+version = "0.1.0"
+description = "Backend REST API for managing music bands, concerts and ticket sales."
+authors = ["Music Band Manager"]
+readme = "README.md"
+packages = [{ include = "app" }]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.0"
+uvicorn = { extras = ["standard"], version = "^0.30.0" }
+sqlalchemy = { extras = ["asyncio"], version = "^2.0.32" }
+asyncpg = "^0.29.0"
+alembic = "^1.13.2"
+python-jose = { extras = ["cryptography"], version = "^3.3.0" }
+passlib = { extras = ["bcrypt"], version = "^1.7.4" }
+bcrypt = "4.0.1"
+pydantic-settings = "^2.4.0"
+python-multipart = "^0.0.9"
+
+[tool.poetry.group.dev.dependencies]
+httpx = "^0.27.0"
+pytest = "^8.3.2"
+pytest-asyncio = "^0.23.8"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

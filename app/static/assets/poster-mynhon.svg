@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 560" role="img" aria-label="Mynhon concert poster">
+  <defs>
+    <linearGradient id="r" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#e62124"/>
+      <stop offset=".55" stop-color="#f2efeb"/>
+      <stop offset="1" stop-color="#151313"/>
+    </linearGradient>
+  </defs>
+  <rect width="420" height="560" rx="10" fill="url(#r)"/>
+  <path d="M0 0h420v112H0zM0 458h420v102H0z" fill="#e62124"/>
+  <circle cx="214" cy="230" r="120" fill="#f5f2ee"/>
+  <path d="M126 204c36-72 156-76 188 2 28 70-18 142-94 142-72 0-126-70-94-144z" fill="#141111"/>
+  <path d="M166 216c32-20 78-18 112 0v100c-38 34-82 32-112 0z" fill="#f1d8cf"/>
+  <path d="M166 220c14 20 30 24 50 20 18-4 36-18 64-14-8-46-108-58-114-6z" fill="#111"/>
+  <text x="28" y="58" font-family="Arial Black, Arial" font-size="44" fill="#fff">MYNHON</text>
+  <text x="27" y="510" font-family="Arial Black, Arial" font-size="44" fill="#fff">MYNHON</text>
+  <text x="34" y="548" font-family="Arial" font-size="20" fill="#fff">OPEN AIR / SAINT PETERSBURG</text>
+  <g fill="#111">
+    <text x="286" y="154" font-family="Arial Black, Arial" font-size="24">JUL</text>
+    <text x="286" y="184" font-family="Arial Black, Arial" font-size="30">08</text>
+  </g>
+</svg>

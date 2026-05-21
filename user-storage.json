@@ -1,0 +1,16 @@
+{
+    "cookies":  [
+
+                ],
+    "origins":  [
+                    {
+                        "localStorage":  [
+                                             {
+                                                 "value":  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NzkxOTMzOTUsInN1YiI6Ijk1YzAwYTBkLTFkMGYtNGRmZC1hNGE4LWZjYzFlNmRkMDgwYSJ9.5dYK-P47lI5w-aGMCwO4adsTf1W0B9vLEXmqJ9IHaeY",
+                                                 "name":  "waves_token"
+                                             }
+                                         ],
+                        "origin":  "http://127.0.0.1:8000"
+                    }
+                ]
+}
