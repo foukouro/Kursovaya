@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = "music"
     POSTGRES_DB: str = "music_band_manager"
     TICKETMASTER_API_KEY: str | None = None
+    NOTIFICATION_SERVICE_URL: str = "http://127.0.0.1:8010"
+    RECOMMENDATION_SERVICE_URL: str = "http://127.0.0.1:8020"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", case_sensitive=True)
 

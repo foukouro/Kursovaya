@@ -9,6 +9,7 @@ from app.core.database import Base, TimestampMixin
 
 if TYPE_CHECKING:
     from app.models.concert import Concert
+    from app.models.release import Release
     from app.models.user import User
 
 
@@ -27,6 +28,11 @@ class Band(TimestampMixin, Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(String(255), unique=True, index=True, nullable=False)
     genre: Mapped[str] = mapped_column(String(100), nullable=False)
+    city: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    description: Mapped[str | None] = mapped_column(String(2000), nullable=True)
+    cover_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    website_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    instagram_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
     manager_id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("users.id", ondelete="RESTRICT"),
@@ -40,6 +46,11 @@ class Band(TimestampMixin, Base):
         lazy="selectin",
     )
     concerts: Mapped[list["Concert"]] = relationship(
+        back_populates="band",
+        cascade="all, delete-orphan",
+        lazy="selectin",
+    )
+    releases: Mapped[list["Release"]] = relationship(
         back_populates="band",
         cascade="all, delete-orphan",
         lazy="selectin",

@@ -9,6 +9,11 @@ from app.schemas.user import RosterMember, UserPublic
 class BandBase(BaseModel):
     name: str = Field(..., min_length=1, max_length=255)
     genre: str = Field(..., min_length=1, max_length=100)
+    city: str | None = Field(default=None, max_length=100)
+    description: str | None = Field(default=None, max_length=2000)
+    cover_url: str | None = Field(default=None, max_length=500)
+    website_url: str | None = Field(default=None, max_length=500)
+    instagram_url: str | None = Field(default=None, max_length=500)
 
 
 class BandCreate(BandBase):
@@ -22,6 +27,16 @@ class BandRead(BandBase):
     manager_id: uuid.UUID
     created_at: datetime
     updated_at: datetime
+
+
+class BandUpdate(BaseModel):
+    name: str | None = Field(default=None, min_length=1, max_length=255)
+    genre: str | None = Field(default=None, min_length=1, max_length=100)
+    city: str | None = Field(default=None, max_length=100)
+    description: str | None = Field(default=None, max_length=2000)
+    cover_url: str | None = Field(default=None, max_length=500)
+    website_url: str | None = Field(default=None, max_length=500)
+    instagram_url: str | None = Field(default=None, max_length=500)
 
 
 class BandWithMusicians(BandRead):

@@ -15,6 +15,7 @@ from app.models.enums import UserRole
 from app.models.user import User
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/auth/login")
+optional_oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_V1_STR}/auth/login", auto_error=False)
 
 
 async def get_session() -> AsyncGenerator[AsyncSession, None]:
@@ -54,18 +55,47 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
     return current_user
 
 
+async def get_optional_active_user(
+    token: str | None = Depends(optional_oauth2_scheme),
+    db: AsyncSession = Depends(get_session),
+) -> User | None:
+    if not token:
+        return None
+    user_id = decode_access_token(token)
+    if user_id is None:
+        return None
+    try:
+        parsed_user_id = uuid.UUID(user_id)
+    except ValueError:
+        return None
+
+    result = await db.execute(
+        select(User).options(selectinload(User.profile)).where(User.id == parsed_user_id)
+    )
+    user = result.scalar_one_or_none()
+    if user is None or not user.is_active:
+        return None
+    return user
+
+
 def require_role(user: User, role: UserRole) -> User:
     if user.role != role:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав")
     return user
 
 
+def require_any_role(user: User, *roles: UserRole) -> User:
+    if user.role not in roles:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав")
+    return user
+
+
 async def get_manager(current_user: User = Depends(get_current_active_user)) -> User:
-    return require_role(current_user, UserRole.manager)
+    return require_any_role(current_user, UserRole.manager, UserRole.admin)
 
 
 async def get_musician(current_user: User = Depends(get_current_active_user)) -> User:
-    return require_role(current_user, UserRole.musician)
+    return require_any_role(current_user, UserRole.musician, UserRole.admin)
 
 
 async def get_admin(current_user: User = Depends(get_current_active_user)) -> User:

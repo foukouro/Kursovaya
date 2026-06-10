@@ -3,35 +3,55 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Waves | Music Band Manager</title>
-    <link rel="stylesheet" href="/static/styles.css" />
+    <title>Waves | Афиша концертов</title>
+    <link rel="stylesheet" href="/static/styles.css?v=20260610m" />
   </head>
-  <body>
+  <body data-page="home">
     <main class="shell">
       <header class="topbar">
         <a class="brand"  href="/">Waves</a>
         <nav class="nav" aria-label="Главная навигация">
-          <a href="/concerts">Concert</a>
-          <a href="/cabinet">Cabinet</a>
-          <a href="#about">About</a>
+          <a href="/concerts" data-i18n="nav.concerts">Афиша</a>
+          <a href="/cabinet" data-i18n="nav.cabinet">Кабинет</a>
+          <a href="#about" data-i18n="nav.about">О сервисе</a>
         </nav>
         <div class="topbar-actions" aria-label="Авторизация">
-          <button class="ghost-button" type="button" id="topbar-login-button" data-open-auth="login">log in</button>
-          <button class="ghost-button" type="button" id="topbar-signup-button" data-open-auth="register">sign up</button>
-          <button class="ghost-button" type="button" id="logout-button" hidden>logout</button>
+          <div class="locale-switch" aria-label="Language switch">
+            <a class="locale-button" href="?lang=ru" data-locale="ru">RU</a>
+            <a class="locale-button" href="?lang=en" data-locale="en">EN</a>
+          </div>
+          <a class="ghost-button link-button" href="?auth=login" id="topbar-login-button" data-open-auth="login">войти</a>
+          <a class="ghost-button link-button" href="?auth=register" id="topbar-signup-button" data-open-auth="register">регистрация</a>
+          <button class="ghost-button" type="button" id="logout-button" hidden>выйти</button>
         </div>
       </header>
 
       <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-orbit hero-orbit--left" aria-hidden="true"></div>
+        <div class="hero-orbit hero-orbit--right" aria-hidden="true"></div>
         <div class="hero-copy">
-          <h1 id="hero-title">Ваш универсальный помощник</h1>
-          <p>Waves — это сервис для организации музыкальных туров и планирования концертов.</p>
+          <span class="hero-kicker" data-i18n="home.kicker">concert discovery platform</span>
+          <h1 id="hero-title" data-i18n="home.hero_title">Ваш универсальный помощник</h1>
+          <p data-i18n="home.hero_text">Waves — это сервис для организации музыкальных туров и планирования концертов.</p>
+          <div class="hero-metrics">
+            <article class="hero-metric">
+              <strong>6+</strong>
+              <span data-i18n="home.metric_concerts">ближайших концертов в каталоге</span>
+            </article>
+            <article class="hero-metric">
+              <strong>2</strong>
+              <span data-i18n="home.metric_sources">внешних источника афиш</span>
+            </article>
+            <article class="hero-metric">
+              <strong>4</strong>
+              <span data-i18n="home.metric_roles">рабочие роли в одном кабинете</span>
+            </article>
+          </div>
         </div>
 
         <div class="auth-actions" aria-label="Авторизация">
-
-          <button class="ghost-button" type="button" id="hero-login-button" data-open-auth="login">log in</button>
-          <button class="ghost-button" type="button" id="hero-signup-button" data-open-auth="register">sign up</button>
+          <a class="ghost-button link-button" href="?auth=login" id="hero-login-button" data-open-auth="login">войти</a>
+          <a class="ghost-button link-button" href="?auth=register" id="hero-signup-button" data-open-auth="register">регистрация</a>
         </div>
       </section>
 
@@ -42,29 +62,83 @@
         <img src="/static/assets/poster-pyro.svg" alt="Pyrokinesis poster" />
       </section>
 
+      <section class="home-concerts" aria-labelledby="home-concerts-title">
+        <div class="section-head">
+          <div>
+            <h2 id="home-concerts-title" data-i18n="home.local_title">Ближайшие концерты</h2>
+            <p data-i18n="home.local_text">Живая витрина событий из каталога Waves. Отсюда можно сразу перейти к покупке.</p>
+          </div>
+          <a class="ghost-button link-button" href="/concerts" data-i18n="home.all_concerts">Смотреть всю афишу</a>
+        </div>
+        <div class="home-concert-grid" id="home-concert-grid">
+          <article class="result-card">
+            <div class="result-card-body">
+              <strong data-i18n="home.loading_local_title">Загружаем концерты...</strong>
+              <div class="result-meta">
+                <span data-i18n="home.loading_local_text">Подтягиваем ближайшие события из базы</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="home-recommendations" aria-labelledby="home-recommendations-title">
+        <div class="section-head">
+          <div>
+            <h2 id="home-recommendations-title" data-i18n="home.recommended_title">Подборка для вас</h2>
+            <p data-i18n="home.recommended_text">Рекомендательный микросервис ранжирует концерты по городу, жанру, цене и доступности билетов.</p>
+          </div>
+          <span class="section-badge" id="home-recommendations-badge">Москва</span>
+        </div>
+        <div class="home-recommend-grid" id="home-recommend-grid">
+          <article class="result-card">
+            <div class="result-card-body">
+              <strong data-i18n="home.loading_recommended_title">Собираем персональную подборку...</strong>
+              <div class="result-meta">
+                <span data-i18n="home.loading_recommended_text">Анализируем афишу, город и доступные билеты</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="home-highlights" aria-labelledby="home-highlights-title">
+        <div class="section-head">
+          <div>
+            <h2 id="home-highlights-title" data-i18n="home.external_title">Внешние афиши и находки</h2>
+            <p data-i18n="home.external_text">Дополняем внутренний каталог подборкой событий из KudaGo и Ticketmaster.</p>
+          </div>
+        </div>
+        <div class="home-highlight-grid" id="home-highlight-grid">
+          <article class="result-card no-poster">
+            <span class="result-meta" data-i18n="home.loading_external">Загружаем внешние афиши...</span>
+          </article>
+        </div>
+      </section>
+
       <section class="notes" id="about" aria-label="Описание">
         <article>
-          <h2>Поиск</h2>
-          <p>Подбор концертов по городу, жанру и названию группы. Поля поддерживают ручной ввод и подсказки.</p>
+          <h2 data-i18n="home.notes_search_title">Поиск</h2>
+          <p data-i18n="home.notes_search_text">Подбор концертов по городу, жанру и названию группы. Поля поддерживают ручной ввод и подсказки.</p>
         </article>
         <article>
-          <h2>Билеты</h2>
-          <p>Зарегистрированные пользователи могут покупать билеты и видеть свои заказы в личном кабинете.</p>
+          <h2 data-i18n="home.notes_tickets_title">Билеты</h2>
+          <p data-i18n="home.notes_tickets_text">Зарегистрированные пользователи могут покупать билеты и видеть свои заказы в личном кабинете.</p>
         </article>
         <article>
-          <h2>Администрация</h2>
-          <p>Администратор управляет пользователями, ролями и создает группы для менеджеров.</p>
+          <h2 data-i18n="home.notes_admin_title">Администрация</h2>
+          <p data-i18n="home.notes_admin_text">Администратор управляет пользователями, ролями и создает группы для менеджеров.</p>
         </article>
       </section>
 
       <section class="feature-band" aria-label="Разделы сайта">
         <a class="feature-link" href="/concerts">
-          <strong>Concert search</strong>
-          <span>Найти концерты, посмотреть афиши и перейти к покупке билетов.</span>
+          <strong data-i18n="home.feature_search_title">Поиск концертов</strong>
+          <span data-i18n="home.feature_search_text">Найти концерты, посмотреть афиши и перейти к покупке билетов.</span>
         </a>
         <a class="feature-link" href="/cabinet">
-          <strong>Personal cabinet</strong>
-          <span>Открыть кабинет пользователя или администратора после входа.</span>
+          <strong data-i18n="home.feature_cabinet_title">Личный кабинет</strong>
+          <span data-i18n="home.feature_cabinet_text">Открыть кабинет пользователя или администратора после входа.</span>
         </a>
       </section>
     </main>
@@ -72,30 +146,31 @@
     <dialog class="auth-dialog" id="auth-dialog">
       <form class="auth-card" id="auth-form" method="dialog">
         <button class="close-button" type="button" id="close-auth" aria-label="Закрыть">x</button>
-        <h2 id="auth-title">log in</h2>
+        <h2 id="auth-title" data-i18n="auth.login_title">Вход</h2>
         <label>
-          Email
+          <span data-i18n="auth.email">Email</span>
           <input name="email" type="email" autocomplete="email" required />
         </label>
         <label>
-          Password
+          <span data-i18n="auth.password">Пароль</span>
           <input name="password" type="password" autocomplete="current-password" required />
         </label>
         <div class="register-fields" id="register-fields">
           <label>
-            First name
+            <span data-i18n="auth.first_name">Имя</span>
             <input name="first_name" type="text" autocomplete="given-name" />
           </label>
           <label>
-            Last name
+            <span data-i18n="auth.last_name">Фамилия</span>
             <input name="last_name" type="text" autocomplete="family-name" />
           </label>
         </div>
-        <button class="primary-button wide" type="submit" id="auth-submit">log in</button>
-        <p class="form-message" id="auth-message"></p>
+        <button class="primary-button wide" type="submit" id="auth-submit" data-i18n="auth.login_button">Войти</button>
+        <p class="form-message" id="auth-message" aria-live="polite"></p>
       </form>
     </dialog>
 
-    <script src="/static/app.js" defer></script>
+    <script src="/static/js/cabinet.js?v=20260610m" defer></script>
+    <script src="/static/app.js?v=20260610m" defer></script>
   </body>
 </html>

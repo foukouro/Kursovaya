@@ -46,91 +46,130 @@ DEMO_USERS = [
 ]
 
 
-DEMO_BANDS = [
-    {
-        "name": "Waves of Light",
-        "genre": "indie",
-        "manager_email": "manager@example.com",
-        "musicians": ["musician@example.com"],
-        "concerts": [
-            {
-                "title": "Northern Lights Tour",
-                "venue": "Adrenal Hall",
-                "city": "Москва",
-                "days_from_now": 14,
-                "tickets_total": 180,
-                "tickets_available": 146,
-                "price": 3900,
-            },
-            {
-                "title": "Late Night Session",
-                "venue": "Mira Club",
-                "city": "Санкт-Петербург",
-                "days_from_now": 28,
-                "tickets_total": 140,
-                "tickets_available": 121,
-                "price": 3400,
-            },
-        ],
-    },
-    {
-        "name": "Neon Drift",
-        "genre": "rock",
-        "manager_email": "manager@example.com",
-        "musicians": ["musician@example.com"],
-        "concerts": [
-            {
-                "title": "City Noise",
-                "venue": "Izvestia Hall",
-                "city": "Москва",
-                "days_from_now": 21,
-                "tickets_total": 220,
-                "tickets_available": 188,
-                "price": 4500,
-            },
-            {
-                "title": "Afterglow Live",
-                "venue": "A2 Green Concert",
-                "city": "Санкт-Петербург",
-                "days_from_now": 35,
-                "tickets_total": 200,
-                "tickets_available": 172,
-                "price": 4200,
-            },
-        ],
-    },
-    {
-        "name": "Velvet Pulse",
-        "genre": "electronic",
-        "manager_email": "manager@example.com",
-        "musicians": ["musician@example.com"],
-        "concerts": [
-            {
-                "title": "Pulse Frequency",
-                "venue": "Mumiy Troll Music Bar",
-                "city": "Сочи",
-                "days_from_now": 18,
-                "tickets_total": 160,
-                "tickets_available": 132,
-                "price": 3600,
-            },
-            {
-                "title": "Waves at Night",
-                "venue": "Big Twin Arena",
-                "city": "Казань",
-                "days_from_now": 42,
-                "tickets_total": 240,
-                "tickets_available": 201,
-                "price": 4100,
-            },
-        ],
-    },
+BAND_BLUEPRINTS = [
+    ("Waves of Light", "indie"),
+    ("Neon Drift", "rock"),
+    ("Velvet Pulse", "electronic"),
+    ("Silver Avenue", "pop"),
+    ("Echo Harbour", "indie"),
+    ("Polar Sunset", "rock"),
+    ("Static Bloom", "alternative"),
+    ("Golden District", "pop"),
+    ("Midnight Metro", "electronic"),
+    ("Crimson Avenue", "metal"),
+    ("North Signal", "jazz"),
+    ("Blue Carousel", "indie"),
+    ("Paper Satellites", "electronic"),
+    ("Radio Garden", "pop"),
+    ("Voltage Hearts", "rock"),
+    ("Luna Harbor", "indie"),
+    ("Stereo Veil", "electronic"),
+    ("Amber Skyline", "pop"),
 ]
+
+
+CITY_VENUES: dict[str, list[str]] = {
+    "Москва": ["Adrenal Hall", "VK Stadium", "MTC Live Hall", "1930 Moscow", "Pravda Club"],
+    "Санкт-Петербург": ["A2 Green Concert", "Aurora Hall", "Sound Club", "MTC Hall SPB", "Factory 3"],
+    "Казань": ["Big Twin Arena", "Werk", "Reborn Hall", "Volga Stage", "Uram Space"],
+    "Сочи": ["Mumiy Troll Music Bar", "Skypark Arena", "Sea Breeze Hall", "Port Stage"],
+    "Екатеринбург": ["Tele Club", "Dom Pechati", "Center Club", "Manege Hall"],
+    "Нижний Новгород": ["Milo Concert Hall", "Nebo Stage", "Factory NN", "Volna Hall"],
+    "Самара": ["Zvezda Hall", "Volga Music Hall", "Signal Club", "Raketa Space"],
+    "Краснодар": ["Arena Hall", "Sgt. Pepper's Bar", "Dom Event Hall", "South Stage"],
+    "Уфа": ["Tinkoff Hall", "Art Square Hall", "Bashkir Arena", "Cloud Room"],
+    "Красноярск": ["Era Hall", "Yenisey Stage", "Bridge Club", "North Dome"],
+    "Новосибирск": ["Podzemka", "Opera Sky Hall", "Sibir Arena", "Loft Park"],
+}
+
+
+SHOW_TITLES = [
+    "Northern Lights Tour",
+    "City Noise",
+    "Afterglow Live",
+    "Pulse Frequency",
+    "Waves at Night",
+    "Midnight Broadcast",
+    "Open Season",
+    "Gravity Session",
+    "Electric Stories",
+    "Live in Motion",
+    "Satellite Hearts",
+    "Ocean of Signals",
+    "Night Transit",
+    "Velvet City",
+    "Parallel Lines",
+    "Aerial Dreams",
+]
+
+
+PRICE_STEPS = [2800, 3200, 3500, 3900, 4200, 4500, 4800, 5200]
+TICKET_TOTALS = [120, 140, 160, 180, 200, 220, 240, 260, 300]
 
 
 def qr_code_for_ticket(email: str, concert_title: str, quantity: int) -> str:
     seed = f"{email}:{concert_title}:{quantity}"
     return hashlib.sha256(seed.encode("utf-8")).hexdigest()[:24]
+
+
+def generated_band_catalog() -> list[dict]:
+    catalog: list[dict] = []
+    cities = list(CITY_VENUES.keys())
+
+    for band_index, (band_name, genre) in enumerate(BAND_BLUEPRINTS):
+        concerts: list[dict] = []
+        for concert_index in range(8):
+            city = cities[(band_index + concert_index) % len(cities)]
+            venue_list = CITY_VENUES[city]
+            venue = venue_list[(band_index * 2 + concert_index) % len(venue_list)]
+            title = SHOW_TITLES[(band_index + concert_index) % len(SHOW_TITLES)]
+            days_from_now = 7 + concert_index * 8 + band_index
+            tickets_total = TICKET_TOTALS[(band_index + concert_index) % len(TICKET_TOTALS)]
+            sold_tickets = 12 + ((band_index * 11 + concert_index * 9) % max(tickets_total // 2, 20))
+            concerts.append(
+                {
+                    "title": f"{title} {band_name}",
+                    "venue": venue,
+                    "city": city,
+                    "days_from_now": days_from_now,
+                    "tickets_total": tickets_total,
+                    "tickets_available": tickets_total - sold_tickets,
+                    "price": PRICE_STEPS[(band_index + concert_index) % len(PRICE_STEPS)],
+                    "status": ConcertStatus.planned,
+                }
+            )
+
+        # Add two historical entries per band so the database contains richer data.
+        for archive_index in range(2):
+            city = cities[(band_index + archive_index + 3) % len(cities)]
+            venue_list = CITY_VENUES[city]
+            venue = venue_list[(band_index + archive_index) % len(venue_list)]
+            title = SHOW_TITLES[(band_index + archive_index + 5) % len(SHOW_TITLES)]
+            tickets_total = TICKET_TOTALS[(band_index + archive_index + 2) % len(TICKET_TOTALS)]
+            concerts.append(
+                {
+                    "title": f"{title} Archive {band_name}",
+                    "venue": venue,
+                    "city": city,
+                    "days_from_now": -(35 + band_index * 2 + archive_index * 14),
+                    "tickets_total": tickets_total,
+                    "tickets_available": 0,
+                    "price": PRICE_STEPS[(band_index + archive_index + 2) % len(PRICE_STEPS)],
+                    "status": ConcertStatus.completed if archive_index == 0 else ConcertStatus.cancelled,
+                }
+            )
+
+        catalog.append(
+            {
+                "name": band_name,
+                "genre": genre,
+                "manager_email": "manager@example.com",
+                "musicians": ["musician@example.com"],
+                "concerts": concerts,
+            }
+        )
+
+    return catalog
 
 
 async def upsert_demo_users(session) -> dict[str, User]:
@@ -177,9 +216,9 @@ async def reset_demo_catalog(session, users: dict[str, User]) -> None:
     await session.flush()
 
     now = datetime.now(timezone.utc)
-    created_concerts: list[tuple[Concert, str]] = []
+    created_concerts: list[Concert] = []
 
-    for band_data in DEMO_BANDS:
+    for band_data in generated_band_catalog():
         band = Band(
             name=band_data["name"],
             genre=band_data["genre"],
@@ -199,23 +238,26 @@ async def reset_demo_catalog(session, users: dict[str, User]) -> None:
                 tickets_total=concert_data["tickets_total"],
                 tickets_available=concert_data["tickets_available"],
                 price=concert_data["price"],
-                status=ConcertStatus.planned,
+                status=concert_data["status"],
             )
             session.add(concert)
-            created_concerts.append((concert, band.name))
+            created_concerts.append(concert)
 
     await session.flush()
 
-    first_concert = created_concerts[0][0]
-    ticket = Ticket(
-        user_id=users["user@example.com"].id,
-        concert_id=first_concert.id,
-        purchase_date=now + timedelta(minutes=5),
-        quantity=2,
-        qr_code_data=qr_code_for_ticket("user@example.com", first_concert.title, 2),
-    )
-    session.add(ticket)
-    first_concert.tickets_available -= 2
+    for offset, quantity in ((0, 2), (5, 1), (12, 3), (20, 2)):
+        concert = created_concerts[offset]
+        if concert.status != ConcertStatus.planned or concert.tickets_available < quantity:
+            continue
+        ticket = Ticket(
+            user_id=users["user@example.com"].id,
+            concert_id=concert.id,
+            purchase_date=now + timedelta(minutes=5 + offset),
+            quantity=quantity,
+            qr_code_data=qr_code_for_ticket("user@example.com", concert.title, quantity),
+        )
+        session.add(ticket)
+        concert.tickets_available -= quantity
 
 
 async def seed_demo_content() -> None:

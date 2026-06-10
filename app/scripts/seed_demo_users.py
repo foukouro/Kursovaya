@@ -24,6 +24,20 @@ DEMO_USERS = [
         "first_name": "Site",
         "last_name": "Admin",
     },
+    {
+        "email": "manager@example.com",
+        "password": "manager12345",
+        "role": UserRole.manager,
+        "first_name": "Mila",
+        "last_name": "Manager",
+    },
+    {
+        "email": "musician@example.com",
+        "password": "musician12345",
+        "role": UserRole.musician,
+        "first_name": "Leo",
+        "last_name": "Tempo",
+    },
 ]
 
 

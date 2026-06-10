@@ -31,6 +31,9 @@ class Concert(TimestampMixin, Base):
     tickets_total: Mapped[int] = mapped_column(Integer, nullable=False)
     tickets_available: Mapped[int] = mapped_column(Integer, nullable=False)
     price: Mapped[int] = mapped_column(Integer, nullable=False)
+    description: Mapped[str | None] = mapped_column(String(2000), nullable=True)
+    poster_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    external_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
     status: Mapped[ConcertStatus] = mapped_column(
         Enum(ConcertStatus, name="concert_status"),
         default=ConcertStatus.planned,

@@ -33,6 +33,13 @@ class UserLogin(BaseModel):
     password: str = Field(..., min_length=1, max_length=128)
 
 
+class UserMeUpdate(BaseModel):
+    email: str | None = Field(default=None, min_length=5, max_length=255)
+    first_name: str | None = Field(default=None, min_length=1, max_length=100)
+    last_name: str | None = Field(default=None, min_length=1, max_length=100)
+    avatar_url: str | None = Field(default=None, max_length=500)
+
+
 class UserRead(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -63,6 +70,10 @@ class RosterMember(BaseModel):
 
 class UserRoleUpdate(BaseModel):
     role: UserRole
+
+
+class UserEmailLookup(BaseModel):
+    email: str = Field(..., min_length=5, max_length=255)
 
 
 class UserFilter(BaseModel):
