@@ -10,3 +10,5 @@ postgres_data/
 *.png
 *-storage.json
 /0
+tmp_*
+waves_dump_*.sql
